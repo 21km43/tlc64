@@ -1,0 +1,5 @@
+*.o
+*.d
+*.s
+src/tlc
+src/test/
