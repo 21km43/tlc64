@@ -44,7 +44,7 @@ extern void gen_insn_add(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_sub(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_mul(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_div(FILE* out, int dst, int src1, int src2);
-extern void gen_insn_mod(FILE* out, int dst, int src1, int src2):
+extern void gen_insn_mod(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_ret_asgn(FILE *out, int src);
 extern void gen_insn_jmp(FILE *out, const char *label);
 extern void gen_insn_cmp(FILE* out, int src1, int src2);
