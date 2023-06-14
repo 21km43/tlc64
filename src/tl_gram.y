@@ -199,6 +199,8 @@ identifier_list
 parameter_list
 	: parameter_declaration
 	{ $$ = act_param_list(NULL, $1); }
+	| parameter_list TOKEN_COMMA parameter_declaration
+	{ $$ = act_param_list($1, $3); }
 
 parameter_declaration
 	: TOKEN_INT identifier
