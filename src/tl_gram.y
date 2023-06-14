@@ -49,6 +49,7 @@ extern int  yylineno;
 %token  TOKEN_MINUS
 %token  TOKEN_ASTERISK
 %token  TOKEN_SLASH
+%token  TOKEN_PERCENT
 %token  TOKEN_LT
 %token  TOKEN_LTE
 %token  TOKEN_GTE
@@ -60,9 +61,7 @@ extern int  yylineno;
 %token  TOKEN_RPAREN
 %token  TOKEN_LBRACE
 %token  TOKEN_RBRACE
-%token  TOKEN_LBRSQU;
-%token  TOKEN_RBRSQU;
-%token  TOKEN_AMP;
+%token  TOKEN_AMP
 %token  TOKEN_SEMICOLON
 
 %token  TOKEN_ELSE
@@ -151,6 +150,8 @@ multiplicative_expression
 	{ $$ = act_expr_n2(AST_EXP_MUL, $1, $3); }
 	| multiplicative_expression TOKEN_SLASH unary_expression
 	{ $$ = act_expr_n2(AST_EXP_DIV, $1, $3); }
+	| multiplicative_expression TOKEN_PERCENT unary_expression
+	{ $$ = act_expr_n2(AST_EXP_MOD, $1, $3); }
 
 additive_expression
 	: multiplicative_expression
@@ -183,7 +184,7 @@ equality_expression
 assignment_expression
 	: equality_expression
 	{ $$ = $1; }
-	| unary_expression TOKEN_EQ equality_expression
+	| identifier TOKEN_EQ equality_expression
 	{ $$ = act_expr_n2(AST_EXP_ASGN, $1, $3); }
 
 declaration

@@ -91,9 +91,10 @@ const char sub_name[][20] = {
     "plus",        /* AST_EXP_UNARY_PLUS  */
     "minus",       /* AST_EXP_UNARY_MINUS */
 	"asterisk",    /* AST_EXP_UNARY_ASTERISK */
-	"amp",         /* AST_EXP_UNARY_AMP */
+	"amp",         /* AST_EXP_UNARY_AMP   */
     "multiply",    /* AST_EXP_MUL         */
     "division",    /* AST_EXP_DIV         */
+	"mod",         /* AST_EXP_MOD         */
     "add",         /* AST_EXP_ADD         */
     "sub",         /* AST_EXP_SUB         */
     "lt",          /* AST_EXP_LT          */

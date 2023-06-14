@@ -42,6 +42,7 @@ enum {
     AST_EXP_UNARY_AMP,
     AST_EXP_MUL,
     AST_EXP_DIV,
+	AST_EXP_MOD,
     AST_EXP_ADD,
     AST_EXP_SUB,
     AST_EXP_LT,

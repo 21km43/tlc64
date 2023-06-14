@@ -23,6 +23,7 @@
 "-"    return  TOKEN_MINUS;
 "*"    return  TOKEN_ASTERISK;
 "/"    return  TOKEN_SLASH;
+"%"    return  TOKEN_PERCENT;
 "<"    return  TOKEN_LT;
 "<="   return  TOKEN_LTE;
 ">="   return  TOKEN_GTE;

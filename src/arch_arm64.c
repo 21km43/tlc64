@@ -404,6 +404,22 @@ gen_insn_mul(FILE* out, int dst, int src1, int src2)
             reg_name[dst], reg_name[src1], reg_name[src2]);
 }
 
+void
+gen_insn_div(FILE* out, int dst, int src1, int src2)
+{
+    fprintf(out, "\tsdiv\t%s, %s, %s\n",
+            reg_name[dst], reg_name[src1], reg_name[src2]);
+}
+
+void
+gen_insn_mod(FILE* out, int dst, int src1, int src2)
+{
+    fprintf(out, "\tsdiv\t%s, %s, %s\n",
+            reg_name[dst], reg_name[src1], reg_name[src2]);
+	fprintf(out, "\tmsub\t%s, %s, %s, %s\n",
+            reg_name[dst], reg_name[dst], reg_name[src1], reg_name[src2]);
+}
+
 /* return value is passed through "w0" register. */
 void
 gen_insn_ret_asgn(FILE *out, int src)

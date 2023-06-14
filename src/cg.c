@@ -629,10 +629,11 @@ gen_exp_n2(FILE *out, AST_Node *e)
         gen_insn_mul(out, e->reg, e->reg, src);
         break;
     case  AST_EXP_DIV:
-        /* "div" is not supported now because of its register restriction. */
-        fputs("Sorry, div is not suppoted.\n", stderr);
-        exit(-1);
+        gen_insn_div(out, e->reg, e->reg, src);
         break;
+	case  AST_EXP_MOD:
+        gen_insn_mod(out, e->reg, e->reg, src);
+		break;
     case  AST_EXP_ADD:
         gen_insn_add(out, e->reg, e->reg, src);
         break;
