@@ -63,6 +63,7 @@ const char CALL_OP[]      =  "bl";
 
 
 char reg_name[][10] = {"w8", "w9", "w10"};
+char regx_name[][10] = {"x8", "x9", "x10"};
 char param_reg_name[][10] = {"NULL", "w0", "w1", "w2", "w3", "w4", "w5",
                              "w6", "w7" };
 
@@ -356,13 +357,13 @@ gen_insn_neg(FILE* out, int dst, int src)
 void
 gen_insn_indirect(FILE* out, int dst, int src)
 {
-    fprintf(out, "\tmov\t%s, [%s]\n", reg_name[dst], reg_name[src]);
+    fprintf(out, "\tmov\t%s, [%s]\n", regx_name[dst], regx_name[src]);
 }
 
 void
 gen_insn_address(FILE* out, int dst, int src)
 {
-	fprintf(out, "\tadd\t%s, x29, %d\n", reg_name[dst], src);
+	fprintf(out, "\tadd\t%s, x29, %d\n", regx_name[dst], src);
 }
 
 void
