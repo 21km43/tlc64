@@ -62,10 +62,10 @@ const char SECTION_TEXT[] =  "\t.text\n\t.p2align 2\n";
 const char CALL_OP[]      =  "bl";
 
 
-char reg_name[][10] = {"w8", "w9", "w10"};
+char reg_name[][10] = {"x8", "x9", "x10"};
 char regx_name[][10] = {"x8", "x9", "x10"};
-char param_reg_name[][10] = {"NULL", "w0", "w1", "w2", "w3", "w4", "w5",
-                             "w6", "w7" };
+char param_reg_name[][10] = {"NULL", "x0", "x1", "x2", "x3", "x4", "x5",
+                             "x6", "x7" };
 
 /* tlcにおけるARM (64bit)スタックレイアウトメモ
    note for ARM(64bit) stack layout in tlc
@@ -357,7 +357,7 @@ gen_insn_neg(FILE* out, int dst, int src)
 void
 gen_insn_indirect(FILE* out, int dst, int src)
 {
-    fprintf(out, "\tmov\t%s, [%s]\n", regx_name[dst], regx_name[src]);
+    fprintf(out, "\tldr\t%s, [%s]\n", regx_name[dst], regx_name[src]);
 }
 
 void
