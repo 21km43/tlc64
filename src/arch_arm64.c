@@ -63,6 +63,7 @@ const char CALL_OP[]      =  "bl";
 
 
 char reg_name[][10] = {"w8", "w9", "w10"};
+char regx_name[][10] = {"x8", "x9", "x10"};
 char param_reg_name[][10] = {"NULL", "w0", "w1", "w2", "w3", "w4", "w5",
                              "w6", "w7" };
 
@@ -204,6 +205,8 @@ gen_func_header(FILE *out, char *name, int frame_size, AST_List *arg_list)
     AST_List *l;
     int i;
     int pad;
+	
+	frame_size += 8; // main関数のスタックポインタ（上の方）を保存するため強引に拡張する
 
     /* 整列補正用のpad計算。上記のスタックに関するメモを参照
        frame_sizeはメモ中の(Nv+Na1)*4に等しい
@@ -224,8 +227,14 @@ gen_func_header(FILE *out, char *name, int frame_size, AST_List *arg_list)
             "%s:\n", targetn, targetn);
     fprintf(out, "\tstp\tx29, x30, [sp, -%d]!\n", current_frame_size);
     fprintf(out, "\tadd\tx29, sp, %d\n", current_frame_size);
-	if (strcmp(name, "main") == 0) {
-        fprintf(out, "\tmov\tx15, x29\n"); // 最初に基準値（main関数のスタックの上端）をx15に退避しておく
+    if (strcmp(name, "main") == 0) {
+        // 最初に基準値（main関数のスタックの上端）をスタックに退避しておく
+        // old x29, old x30 の領域は16バイトなのでそのすぐ上に配置する
+        fprintf(out, "\tstr\tx29, [sp, 16]\n");
+    } else {
+        // それ以外の場合は[x29, 16]から[sp, 16]にコピーすればよい。一回でコピーはできないのでレジスタを介して行う
+        fprintf(out, "\tldr\tx8, [x29, 16]\n");
+        fprintf(out, "\tstr\tx8, [sp, 16]\n");
     }
     i = 0;
     TRAVERSE_AST_LIST(l, arg_list, gen_store_params(out, l->elem, ++i));
@@ -360,6 +369,7 @@ void
 gen_insn_indirect(FILE* out, int dst, int src)
 {
 	fprintf(out, "\tand\t%s, %s, 0xffffffff\n", regx_name[dst], regx_name[dst]);
+	fprintf(out, "\tldr\tx15, [sp, 16]\n");
     fprintf(out, "\tldr\t%s, [x15, %s]\n", reg_name[dst], regx_name[src]);
 }
 
@@ -367,6 +377,7 @@ void
 gen_insn_address(FILE* out, int dst, int src)
 {
 	fprintf(out, "\tadd\t%s, x29, %d\n", regx_name[dst], src);
+	fprintf(out, "\tldr\tx15, [sp, 16]\n");
     fprintf(out, "\tsub\t%s, %s, x15\n", regx_name[dst], regx_name[dst]);
 }
 
