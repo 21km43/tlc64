@@ -370,7 +370,8 @@ gen_insn_indirect(FILE* out, int dst, int src)
 {
 	fprintf(out, "\tand\t%s, %s, 0xffffffff\n", regx_name[dst], regx_name[dst]);
 	fprintf(out, "\tldr\tx11, [sp, 16]\n");
-    fprintf(out, "\tldr\t%s, [x11, %s]\n", reg_name[dst], regx_name[src]);
+	fprintf(out, "\tsub\t%s, x11, %s\n", regx_name[dst], regx_name[dst]);
+    fprintf(out, "\tldr\t%s, [%s]\n", reg_name[dst], regx_name[src]);
 }
 
 void
@@ -378,7 +379,8 @@ gen_insn_address(FILE* out, int dst, int src)
 {
 	fprintf(out, "\tadd\t%s, x29, %d\n", regx_name[dst], src);
 	fprintf(out, "\tldr\tx11, [sp, 16]\n");
-    fprintf(out, "\tsub\t%s, %s, x11\n", regx_name[dst], regx_name[dst]);
+	// 非負にしないと後で32bitに変換できなくなる（符号は最上位ビットのみで決定されるため）
+    fprintf(out, "\tsub\t%s, x11, %s\n", regx_name[dst], regx_name[dst]);
 }
 
 void
