@@ -414,10 +414,10 @@ gen_insn_div(FILE* out, int dst, int src1, int src2)
 void
 gen_insn_mod(FILE* out, int dst, int src1, int src2)
 {
-    fprintf(out, "\tsdiv\t%s, %s, %s\n",
-            reg_name[dst], reg_name[src1], reg_name[src2]);
-	fprintf(out, "\tmsub\t%s, %s, %s, %s\n",
-            reg_name[dst], reg_name[dst], reg_name[src2], reg_name[src1]);
+    fprintf(out, "\tsdiv\tx11, %s, %s\n",
+            reg_name[src1], reg_name[src2]);
+	fprintf(out, "\tmsub\t%s, x11, %s, %s\n",
+            reg_name[dst], reg_name[src2], reg_name[src1]);
 }
 
 /* return value is passed through "w0" register. */
