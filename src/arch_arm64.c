@@ -63,7 +63,6 @@ const char CALL_OP[]      =  "bl";
 
 
 char reg_name[][10] = {"w8", "w9", "w10"};
-char regx_name[][10] = {"x8", "x9", "x10"};
 char param_reg_name[][10] = {"NULL", "w0", "w1", "w2", "w3", "w4", "w5",
                              "w6", "w7" };
 
@@ -225,6 +224,9 @@ gen_func_header(FILE *out, char *name, int frame_size, AST_List *arg_list)
             "%s:\n", targetn, targetn);
     fprintf(out, "\tstp\tx29, x30, [sp, -%d]!\n", current_frame_size);
     fprintf(out, "\tadd\tx29, sp, %d\n", current_frame_size);
+	if (strcmp(name, "main") == 0) {
+        fprintf(out, "\tmov\tx15, x29\n"); // 最初に基準値（main関数のスタックの上端）をx15に退避しておく
+    }
     i = 0;
     TRAVERSE_AST_LIST(l, arg_list, gen_store_params(out, l->elem, ++i));
 }
@@ -357,13 +359,15 @@ gen_insn_neg(FILE* out, int dst, int src)
 void
 gen_insn_indirect(FILE* out, int dst, int src)
 {
-    fprintf(out, "\tldr\t%s, [%s]\n", regx_name[dst], regx_name[src]);
+	fprintf(out, "\tand\t%s, %s, 0xffffffff\n", regx_name[dst], regx_name[dst]);
+    fprintf(out, "\tldr\t%s, [x15, %s]\n", reg_name[dst], regx_name[src]);
 }
 
 void
 gen_insn_address(FILE* out, int dst, int src)
 {
 	fprintf(out, "\tadd\t%s, x29, %d\n", regx_name[dst], src);
+    fprintf(out, "\tsub\t%s, %s, x15\n", regx_name[dst], regx_name[dst]);
 }
 
 void
