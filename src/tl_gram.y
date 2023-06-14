@@ -183,7 +183,7 @@ equality_expression
 assignment_expression
 	: equality_expression
 	{ $$ = $1; }
-	| identifier TOKEN_EQ equality_expression
+	| unary_expression TOKEN_EQ equality_expression
 	{ $$ = act_expr_n2(AST_EXP_ASGN, $1, $3); }
 
 declaration
