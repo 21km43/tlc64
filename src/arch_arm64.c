@@ -354,6 +354,18 @@ gen_insn_neg(FILE* out, int dst, int src)
 }
 
 void
+gen_insn_indirect(FILE* out, int dst, int src)
+{
+    fprintf(out, "\tmov\t%s, [%s]\n", reg_name[dst], reg_name[src]);
+}
+
+void
+gen_insn_address(FILE* out, int dst, int src)
+{
+	fprintf(out, "\tadd\t%s, x29, %d\n", reg_name[dst], src);
+}
+
+void
 gen_insn_add(FILE* out, int dst, int src1, int src2)
 {
     fprintf(out, "\tadd\t%s, %s, %s\n",

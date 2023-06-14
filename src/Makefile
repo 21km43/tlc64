@@ -10,7 +10,7 @@ PLATFORM = LINUX
 
 ifeq ($(PLATFORM), RASPI)
 TARGET_FLAG = -DTARGET_RASPI
-LFLAGS = -ll -ly
+LFLAGS = -ll
 SRCS_ARCH = arch_arm64.c
 OBJS_ARCH = arch_arm64.o
 DEPS_ARCH = arch_arm64.d

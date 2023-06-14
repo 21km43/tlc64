@@ -34,6 +34,7 @@
 ")"    return  TOKEN_RPAREN;
 "{"    return  TOKEN_LBRACE;
 "}"    return  TOKEN_RBRACE;
+"&"    return  TOKEN_AMP;
 ";"    return  TOKEN_SEMICOLON;
 
 "else"  return  TOKEN_ELSE;

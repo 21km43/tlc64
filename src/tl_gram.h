@@ -73,14 +73,17 @@ extern int yydebug;
     TOKEN_RPAREN = 274,            /* TOKEN_RPAREN  */
     TOKEN_LBRACE = 275,            /* TOKEN_LBRACE  */
     TOKEN_RBRACE = 276,            /* TOKEN_RBRACE  */
-    TOKEN_SEMICOLON = 277,         /* TOKEN_SEMICOLON  */
-    TOKEN_ELSE = 278,              /* TOKEN_ELSE  */
-    TOKEN_FOR = 279,               /* TOKEN_FOR  */
-    TOKEN_IF = 280,                /* TOKEN_IF  */
-    TOKEN_INT = 281,               /* TOKEN_INT  */
-    TOKEN_RETURN = 282,            /* TOKEN_RETURN  */
-    TOKEN_WHILE = 283,             /* TOKEN_WHILE  */
-    TOKEN_DO = 284                 /* TOKEN_DO  */
+    TOKEN_LBRSQU = 277,            /* TOKEN_LBRSQU  */
+    TOKEN_RBRSQU = 278,            /* TOKEN_RBRSQU  */
+    TOKEN_AMP = 279,               /* TOKEN_AMP  */
+    TOKEN_SEMICOLON = 280,         /* TOKEN_SEMICOLON  */
+    TOKEN_ELSE = 281,              /* TOKEN_ELSE  */
+    TOKEN_FOR = 282,               /* TOKEN_FOR  */
+    TOKEN_IF = 283,                /* TOKEN_IF  */
+    TOKEN_INT = 284,               /* TOKEN_INT  */
+    TOKEN_RETURN = 285,            /* TOKEN_RETURN  */
+    TOKEN_WHILE = 286,             /* TOKEN_WHILE  */
+    TOKEN_DO = 287                 /* TOKEN_DO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -96,7 +99,7 @@ union YYSTYPE
     AST_Node  *y_AST_Node;
     AST_List  *y_AST_List;
 
-#line 100 "tl_gram.h"
+#line 103 "tl_gram.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

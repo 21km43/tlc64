@@ -38,6 +38,8 @@ extern void gen_call_epilogue(FILE *out, AST_Node *e,
 
 extern void gen_insn_store_lvar(FILE* out, int reg, int offset);
 extern void gen_insn_neg(FILE* out, int dst, int src);
+extern void gen_insn_indirect(FILE* out, int dst, int src);
+extern void gen_insn_address(FILE* out, int dst, int src);
 extern void gen_insn_add(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_sub(FILE* out, int dst, int src1, int src2);
 extern void gen_insn_mul(FILE* out, int dst, int src1, int src2);

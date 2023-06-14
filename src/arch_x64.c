@@ -365,6 +365,20 @@ gen_insn_neg(FILE* out, int dst, int src)
 }
 
 void
+gen_insn_indirect(FILE* out, int dst, int src)
+{
+	assert(dst == src);
+    fprintf(out, "\tmovl\t(%s), %s\n", reg_name[src], reg_name[dst]);
+}
+
+void
+gen_insn_address(FILE* out, int dst, int src)
+{
+	fprintf(out, "\tmovl\t%%rbp, %s\n", reg_name[dst]);
+    fprintf(out, "\taddl\t$%d, %s\n", src, reg_name[dst]);
+}
+
+void
 gen_insn_add(FILE* out, int dst, int src1, int src2)
 {
     assert(dst == src1);

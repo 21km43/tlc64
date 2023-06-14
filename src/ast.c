@@ -86,10 +86,12 @@ const char sub_name[][20] = {
     "identifier",  /* AST_EXP_IDENT       */
     "const_int",   /* AST_EXP_CNST_INT    */
     "prime",       /* AST_EXP_PRIME       */
-    "call",	   /* AST_EXP_CALL        */
+    "call",	       /* AST_EXP_CALL        */
     "param",	   /* AST_EXP_PARAM       */
     "plus",        /* AST_EXP_UNARY_PLUS  */
     "minus",       /* AST_EXP_UNARY_MINUS */
+	"asterisk",    /* AST_EXP_UNARY_ASTERISK */
+	"amp",         /* AST_EXP_UNARY_AMP */
     "multiply",    /* AST_EXP_MUL         */
     "division",    /* AST_EXP_DIV         */
     "add",         /* AST_EXP_ADD         */

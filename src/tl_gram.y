@@ -60,6 +60,9 @@ extern int  yylineno;
 %token  TOKEN_RPAREN
 %token  TOKEN_LBRACE
 %token  TOKEN_RBRACE
+%token  TOKEN_LBRSQU;
+%token  TOKEN_RBRSQU;
+%token  TOKEN_AMP;
 %token  TOKEN_SEMICOLON
 
 %token  TOKEN_ELSE
@@ -136,6 +139,10 @@ unary_expression
 	{ $$ = act_unary_expr(AST_EXP_UNARY_PLUS, $2); }
 	| TOKEN_MINUS unary_expression
 	{ $$ = act_unary_expr(AST_EXP_UNARY_MINUS, $2); }
+	| TOKEN_ASTERISK unary_expression
+	{ $$ = act_unary_expr(AST_EXP_UNARY_ASTERISK, $2); }
+	| TOKEN_AMP unary_expression
+	{ $$ = act_unary_expr(AST_EXP_UNARY_AMP, $2); }
 
 multiplicative_expression
 	: unary_expression
@@ -147,8 +154,8 @@ multiplicative_expression
 
 additive_expression
 	: multiplicative_expression
-	{ $$ =$1; }
-	| additive_expression TOKEN_PLUS  multiplicative_expression
+	{ $$ = $1; }
+	| additive_expression TOKEN_PLUS multiplicative_expression
 	{ $$ = act_expr_n2(AST_EXP_ADD, $1, $3); }
 	| additive_expression TOKEN_MINUS multiplicative_expression
 	{ $$ = act_expr_n2(AST_EXP_SUB, $1, $3); }
@@ -192,8 +199,6 @@ identifier_list
 parameter_list
 	: parameter_declaration
 	{ $$ = act_param_list(NULL, $1); }
-	| parameter_list TOKEN_COMMA parameter_declaration
-	{ $$ = act_param_list($1, $3); }
 
 parameter_declaration
 	: TOKEN_INT identifier

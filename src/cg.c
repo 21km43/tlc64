@@ -619,6 +619,12 @@ gen_exp_n2(FILE *out, AST_Node *e)
     case  AST_EXP_UNARY_MINUS:
         gen_insn_neg(out, e->reg, e->reg);
         break;
+    case  AST_EXP_UNARY_ASTERISK:
+	    gen_insn_indirect(out, e->reg, e->reg);
+        break;
+    case  AST_EXP_UNARY_AMP:
+	    gen_insn_address(out, e->reg, e->child[0]->symtab->offset);
+		break;
     case  AST_EXP_MUL:
         gen_insn_mul(out, e->reg, e->reg, src);
         break;
